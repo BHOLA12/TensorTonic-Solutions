@@ -1,17 +1,18 @@
 import numpy as np
 
 def bernoulli_pmf_and_moments(x: list, p: float) -> dict:
-    
+    """
+    Returns a dictionary with pmf, mean, and variance.
+    """
     # Write code here
-    result=[]
-    meani=p
-    var=p*(1-p)
+    mean=p
+    vari=p*(1-p)
+    pmf=[]
     for i in range(len(x)):
         if x[i]==1:
-            result.append(p)
+            pmf.append(p)
         else:
-            result.append(1-p)
-    result=np.array(result)
-
-    return {"pmf":result,"mean":float(meani),"variance":float(var)}
-   
+            pmf.append(1-p)
+    pmf=np.array(pmf)
+    return {'pmf':pmf,'mean':float(mean),'variance':float(vari)}
+    
