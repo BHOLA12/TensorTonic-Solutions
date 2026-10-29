@@ -1,32 +1,22 @@
 import numpy as np
 
-def pearson_correlation(X):
+def pearson_correlation(X: list) -> np.ndarray:
     """
-    Compute Pearson correlation matrix from dataset X.
+    Returns the correlation matrix as a NumPy array.
     """
     # Write code here
-    X = np.asarray(X)
+    x=np.asarray(X,dtype=float)
+    mean=np.mean(x,axis=0)
     
-    if X.ndim!=2:
-        return None
-    if len(X)<2: 
-        return None
-    mu = np.mean(X, axis=0)
-    X_centered = X - mu
-    A=np.dot(X_centered.T,  X_centered)
-    A=A/(len(X)-1)
-    std = np.sqrt(np.diag(A))
-
-    # Step 4: Pearson correlation
-    corr = A / np.outer(std, std)
-
-    # Step 5: Handle zero variance
-    zero = (std == 0)
-    corr[zero, :] = np.nan
-    corr[:, zero] = np.nan
-    for i in range(len(std)):
-        if std[i] != 0:
-            corr[i, i] = 1.0
-    return corr
+    cov=(x-mean).T@(x-mean)/(x.shape[0]-1)
+    std = np.std(x, axis=0, ddof=1)
+    denominator = np.outer(std, std)
+    resi = np.full_like(cov, np.nan, dtype=float)
+    for i in range(cov.shape[0]):
+        for j in range(cov.shape[1]):
+            if denominator[i][j]!=0:
+               
+              resi[i][j]=cov[i][j]/denominator[i][j]
+            
     
-    
+    return resi
