@@ -1,8 +1,11 @@
 import numpy as np
 
-def dot_product(x, y):
+def dot_product(x: list, y: list) -> float:
     """
-    Compute the dot product of two 1D arrays x and y.
-    Must return a float.
+    Returns the dot product as a float.
     """
-    return np.dot(x,y)
+    # Write code here
+    
+    x=np.array(x)
+    y=np.array(y)
+    return float(np.dot(x,y))
